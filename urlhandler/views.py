@@ -19,8 +19,6 @@ def dashboard(request):
 def randomgen():
     return ''.join(random.choice(string.ascii_lowercase) for _ in range(6))
 
-
-
 @login_required(login_url='/login/')
 def generate(request):
     if request.method == 'POST':
@@ -78,3 +76,20 @@ def home(request , query = None):
         return redirect(url_to_redirect)
       except shorturl.DoesNotExist :
         return render(request, 'home.html',{'error':'Error '})
+
+@login_required(login_url='/login/')
+def remUrl(request):
+    usr = request.user
+    short = request.POST['short']
+    url = shorturl.objects.filter(short_query = short)
+    if shorturl.objects.filter(short_query = short, user=usr) or str(usr) == 'admin': 
+        url.delete()
+        urls = shorturl.objects.filter()
+        return render(request, 'stats.html', {'urls': urls})
+    else:
+        urls = shorturl.objects.filter()
+        return render(request, 'stats.html', {'urls': urls, 'error': 'You don not have authorisation to delete this link'})
+
+def stats(request):
+    urls = shorturl.objects.filter()
+    return render(request, 'stats.html', {'urls': urls})

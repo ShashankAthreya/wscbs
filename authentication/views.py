@@ -39,7 +39,7 @@ def signup(request):
         if request.POST['password'] == request.POST['password2']:
             if request.POST['username'] and request.POST['email'] and request.POST['password']:
                 try:
-                    user = User.objects.get(email=request.POST['username'])
+                    user = User.objects.get(username=request.POST['username'])
                     return render(request, 'signup.html', {'error': "User already exists"})
                 except User.DoesNotExist:
                     User.objects.create_user(
