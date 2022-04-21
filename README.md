@@ -1,6 +1,5 @@
 # wscbs
-# url-shortner
-This is the official repo for assignment 1 of WS&amp;CBS
+This is the official repo for assignment 2 of WS&amp;CBS
 
 ### Setup
 _You can setup the entire project through simple cli commands. Just open your teminal and paste the below commands._
